@@ -63,6 +63,8 @@ body {
 }
 .circle.active {
     border-color: #3498db;
+    color: #3498db;
+    font-weight: bold;
 }
 
 .btn {
