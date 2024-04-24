@@ -4,6 +4,98 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="style.css" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                    'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+                    'Helvetica Neue', sans-serif;
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .container {
+                text-align: center;
+            }
+            .progress-container {
+                display: flex;
+                justify-content: space-between;
+                position: relative;
+                margin-bottom: 2rem;
+                max-width: 100%;
+                width: 350px;
+            }
+            .progress-container::before {
+                content: '';
+                background: #e0e0e0;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                height: 4px;
+                width: 100%;
+                transform: translateY(-50%);
+                z-index: -1;
+                transition: all 0.5s ease-in-out;
+            }
+            .progress {
+                background: #db6634;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                height: 4px;
+                width: 0%;
+                transform: translateY(-50%);
+                z-index: -1;
+                transition: all 0.5s ease-in-out;
+            }
+
+            .circle {
+                background: white;
+                color: #999;
+                border-radius: 50%;
+                height: 2rem;
+                width: 2rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 2px solid #e0e0e0;
+                transition: all 0.4s ease-in;
+            }
+            .circle.active {
+                border-color: #db6634;
+                color: #db6634;
+                font-weight: bold;
+            }
+
+            .btn {
+                background: #db6634;
+                color: white;
+                border: 0;
+                border-radius: 6px;
+                cursor: pointer;
+                padding: 8px 30px;
+                margin: 5px;
+                text-transform: capitalize;
+            }
+            .btn:active {
+                transform: scale(0.98);
+            }
+            .btn:focus {
+                outline: 0;
+            }
+            .btn:disabled {
+                background: #999;
+                color: white;
+                cursor: not-allowed;
+            }
+        </style>
         <title>Progress Steps</title>
     </head>
     <body>
@@ -18,6 +110,51 @@
             <button class="btn" id="prev" disabled>prev</button>
             <button class="btn" id="next">next</button>
         </div>
-        <script src="app.js"></script>
+        <script>
+            const progress = document.getElementById('progress');
+
+            const btnPrev = document.getElementById('prev');
+            const btnNext = document.getElementById('next');
+            const circles = document.querySelectorAll('.circle');
+
+            let currentActive = 1;
+
+            btnNext.addEventListener('click', () => {
+                currentActive++;
+                if (currentActive > circles.length) {
+                    currentActive = circles.length;
+                }
+                updateProgress();
+            });
+            btnPrev.addEventListener('click', () => {
+                currentActive--;
+                if (currentActive < 1) {
+                    currentActive = 1;
+                }
+                updateProgress();
+            });
+
+            function updateProgress() {
+                circles.forEach((circle, index) => {
+                    if (index < currentActive) {
+                        circle.classList.add('active');
+                    } else {
+                        circle.classList.remove('active');
+                    }
+                });
+                const actives = document.querySelectorAll('.active');
+                progress.style.width =
+                    ((actives.length - 1) / (circles.length - 1)) * 100 + '%';
+
+                if (currentActive === 1) {
+                    btnPrev.disabled = true;
+                } else if (currentActive === circles.length) {
+                    btnNext.disabled = true;
+                } else {
+                    btnNext.disabled = false;
+                    btnPrev.disabled = false;
+                }
+            }
+        </script>
     </body>
 </html>
