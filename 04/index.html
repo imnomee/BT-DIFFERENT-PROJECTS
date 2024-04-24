@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Linking Font Awesome for search icon -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+            integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer" />
+        <style>
+            /* CSS variables */
+            :root {
+                --search-height: 3.5rem;
+                --input-size: 3.5rem;
+                --input-transition: width 0.3s ease-in-out;
+                --btn-size: 2rem;
+                --btn-transition: transform 0.3s ease-in-out;
+                --expanded-width: 20rem;
+                --expanded-translate: 16rem;
+                --bg-gradient-start: #5b3ddd;
+                --bg-gradient-end: #7158e2;
+            }
+
+            /* CSS Reset */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            /* Body Styling */
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background: linear-gradient(
+                    90deg,
+                    var(--bg-gradient-start),
+                    var(--bg-gradient-end)
+                );
+            }
+
+            /* Search Container */
+            .search {
+                position: relative;
+                height: var(--search-height);
+            }
+
+            /* Search Input Styling */
+            .input {
+                background: #fff;
+                border: 0;
+                font-size: 1.5rem;
+                padding: 1rem;
+                height: var(--input-size);
+                width: var(--input-size);
+                transition: var(
+                    --input-transition
+                ); /* Transition only for width */
+            }
+
+            /* Search Button Styling */
+            .btn {
+                border: 0;
+                height: var(--input-size);
+                width: var(--input-size);
+                cursor: pointer;
+                background: #fff;
+                font-size: var(--btn-size);
+                position: absolute;
+                top: 0;
+                left: 0;
+                transition: var(
+                    --btn-transition
+                ); /* Transition only for transform */
+            }
+
+            /* Remove Focus Outline */
+            .btn:focus,
+            .input:focus {
+                outline: none;
+            }
+
+            /* Active State Styling */
+            .search.active .input {
+                width: var(--expanded-width); /* Expanded width */
+            }
+
+            .search.active .btn {
+                transform: translateX(
+                    var(--expanded-translate)
+                ); /* Move button to right */
+            }
+        </style>
+        <title>Hidden Search Widget</title>
+    </head>
+    <body>
+        <!-- Search Container -->
+        <div class="search">
+            <!-- Search Input -->
+            <input type="text" placeholder="Search..." class="input" />
+            <!-- Search Button -->
+            <button class="btn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        <script>
+            // JavaScript for toggling search active state and focusing input
+            document.addEventListener('DOMContentLoaded', function () {
+                // Selecting elements
+                const search = document.querySelector('.search');
+                const btn = search.querySelector('.btn'); // Querying within search
+                const input = search.querySelector('.input'); // Querying within search
+
+                // Adding click event listener to toggle search active state and focus input
+                btn.addEventListener('click', () => {
+                    search.classList.toggle('active'); // Toggling active class
+                    input.focus(); // Focusing input
+                });
+            });
+        </script>
+    </body>
+</html>
