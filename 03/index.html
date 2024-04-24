@@ -9,6 +9,125 @@
             integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
             crossorigin="anonymous"
             referrerpolicy="no-referrer" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                overflow-x: hidden;
+                background: #333;
+                color: #222;
+                overflow: hidden;
+            }
+            .container {
+                background: #fafafa;
+                transform-origin: top left;
+                transition: all 0.5s ease-in-out;
+                width: 100vw;
+                height: 100vh;
+                padding: 3rem;
+                /* overflow: hidden; */
+            }
+
+            .container.show-nav {
+                transform: rotate(-20deg);
+            }
+            .container.show-nav + nav ul li {
+                transform: translateX(0);
+                transition-delay: 0.2s;
+            }
+
+            .circle-container {
+                position: fixed;
+                top: -4rem;
+                left: -4rem;
+            }
+
+            .circle {
+                background: #ff7979;
+                height: 8rem;
+                width: 8rem;
+                border-radius: 50%;
+                position: relative;
+                transition: all 0.5s ease-in;
+            }
+            .container.show-nav .circle {
+                transform: rotate(-70deg);
+            }
+
+            .circle button {
+                position: absolute;
+                cursor: pointer;
+                height: 3rem;
+                top: 50%;
+                left: 50%;
+                /* transform: translate(-50%, -50%); */
+                background: transparent;
+                border: 0;
+                font-size: 1.5rem;
+                color: white;
+            }
+            .circle button:focus {
+                outline: none;
+            }
+
+            .circle button#open {
+                left: 60%;
+            }
+            .circle button#close {
+                top: 60%;
+                transform: rotate(90deg);
+                transform-origin: top left;
+            }
+            nav {
+                position: fixed;
+                bottom: 40px;
+                left: 0;
+                z-index: 5;
+            }
+            nav ul {
+                list-style: none;
+                padding-left: 30px;
+            }
+            nav ul li {
+                text-transform: uppercase;
+                color: white;
+                margin: 2rem 0;
+                transform: translateX(-200px);
+                transition: all 0.5s ease-in-out;
+            }
+            nav ul li i {
+                font-size: 20px;
+                margin-right: 10px;
+            }
+            nav ul li + li {
+                margin-left: 15px;
+                transform: translateX(-250px);
+            }
+
+            nav ul li + li + li {
+                margin-left: 25px;
+                transform: translateX(-300px);
+            }
+            .content {
+                max-width: 1170px;
+                margin: 50px auto;
+            }
+            .content h1 {
+                text-transform: capitalize;
+            }
+            .content small {
+                color: #555;
+                font-style: italic;
+                text-transform: capitalize;
+            }
+            .content p {
+                color: #222;
+                line-height: 1.5;
+            }
+        </style>
         <link rel="stylesheet" href="style.css" />
         <title>Rotating Page Animation</title>
     </head>
@@ -53,6 +172,17 @@
                 <li><i class="fas fa-envelope"></i> contact us</li>
             </ul>
         </nav>
-        <script src="app.js"></script>
+        <script>
+            const open = document.getElementById('open');
+            const close = document.getElementById('close');
+            const container = document.querySelector('.container');
+
+            open.addEventListener('click', () => {
+                container.classList.add('show-nav');
+            });
+            close.addEventListener('click', () => {
+                container.classList.remove('show-nav');
+            });
+        </script>
     </body>
 </html>
