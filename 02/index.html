@@ -1,116 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!-- Meta tags for character set and viewport -->
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Link to external CSS -->
         <link rel="stylesheet" href="style.css" />
+        <!-- Internal CSS -->
         <style>
+            /* CSS Reset */
             * {
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
             }
-
+            /* Body Styling */
             body {
                 font-family: system-ui, -apple-system, BlinkMacSystemFont,
                     'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-                    'Helvetica Neue', sans-serif;
-                height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                    'Helvetica Neue', sans-serif; /* Set font family */
+                height: 100vh; /* Set height to viewport height */
+                display: flex; /* Use flexbox for layout */
+                align-items: center; /* Center vertically */
+                justify-content: center; /* Center horizontally */
             }
-
+            /* Container Styling */
             .container {
-                text-align: center;
+                text-align: center; /* Center align text */
             }
+            /* Progress Container Styling */
             .progress-container {
-                display: flex;
-                justify-content: space-between;
-                position: relative;
-                margin-bottom: 2rem;
-                max-width: 100%;
-                width: 350px;
+                display: flex; /* Use flexbox for layout */
+                justify-content: space-between; /* Space elements evenly */
+                position: relative; /* Set position to relative */
+                margin-bottom: 2rem; /* Set margin */
+                max-width: 100%; /* Set maximum width */
+                width: 350px; /* Set width */
             }
+            /* Progress Bar Base Styling */
             .progress-container::before {
-                content: '';
-                background: #e0e0e0;
-                position: absolute;
-                top: 50%;
-                left: 0;
-                height: 4px;
-                width: 100%;
-                transform: translateY(-50%);
-                z-index: -1;
-                transition: all 0.5s ease-in-out;
+                content: ''; /* Add empty content */
+                background: #e0e0e0; /* Set background color */
+                position: absolute; /* Set position to absolute */
+                top: 50%; /* Set top position */
+                left: 0; /* Set left position */
+                height: 4px; /* Set height */
+                width: 100%; /* Set width */
+                transform: translateY(-50%); /* Translate vertically */
+                z-index: -1; /* Set z-index */
+                transition: all 0.5s ease-in-out; /* Set transition */
             }
+            /* Progress Bar Styling */
             .progress {
-                background: #db6634;
-                position: absolute;
-                top: 50%;
-                left: 0;
-                height: 4px;
-                width: 0%;
-                transform: translateY(-50%);
-                z-index: -1;
-                transition: all 0.5s ease-in-out;
+                background: #c75e34; /* Set background color */
+                position: absolute; /* Set position to absolute */
+                top: 50%; /* Set top position */
+                left: 0; /* Set left position */
+                height: 4px; /* Set height */
+                width: 0%; /* Set initial width */
+                transform: translateY(-50%); /* Translate vertically */
+                z-index: -1; /* Set z-index */
+                transition: all 0.5s ease-in-out; /* Set transition */
             }
-
+            /* Circle Styling */
             .circle {
-                background: white;
-                color: #999;
-                border-radius: 50%;
-                height: 2rem;
-                width: 2rem;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border: 2px solid #e0e0e0;
-                transition: all 0.4s ease-in;
+                background: white; /* Set background color */
+                color: #999; /* Set text color */
+                border-radius: 50%; /* Set border radius for circle shape */
+                height: 2rem; /* Set height */
+                width: 2rem; /* Set width */
+                display: flex; /* Use flexbox for layout */
+                justify-content: center; /* Center horizontally */
+                align-items: center; /* Center vertically */
+                border: 2px solid #e0e0e0; /* Set border */
+                transition: all 0.4s ease-in; /* Set transition */
             }
+            /* Active Circle Styling */
             .circle.active {
-                border-color: #db6634;
-                color: #db6634;
-                font-weight: bold;
+                border-color: #c75e34; /* Set border color */
+                color: #c75e34; /* Set text color */
+                font-weight: bold; /* Set font weight */
             }
-
+            /* Button Styling */
             .btn {
-                background: #db6634;
-                color: white;
-                border: 0;
-                border-radius: 6px;
-                cursor: pointer;
-                padding: 8px 30px;
-                margin: 5px;
-                text-transform: capitalize;
+                background: #c75e34; /* Set background color */
+                color: white; /* Set text color */
+                border: 0; /* Remove border */
+                border-radius: 6px; /* Set border radius */
+                cursor: pointer; /* Set cursor */
+                padding: 8px 30px; /* Set padding */
+                margin: 5px; /* Set margin */
+                text-transform: capitalize; /* Transform text to capitalize */
             }
+            /* Button Active Styling */
             .btn:active {
-                transform: scale(0.98);
+                transform: scale(0.98); /* Scale button slightly on active */
             }
+            /* Button Focus Styling */
             .btn:focus {
-                outline: 0;
+                outline: 0; /* Remove outline on focus */
             }
+            /* Button Disabled Styling */
             .btn:disabled {
-                background: #999;
-                color: white;
-                cursor: not-allowed;
+                background: #999; /* Set background color */
+                color: white; /* Set text color */
+                cursor: not-allowed; /* Set cursor to not-allowed */
             }
         </style>
+        <!-- Title -->
         <title>Progress Steps</title>
     </head>
     <body>
+        <!-- Container -->
         <div class="container">
+            <!-- Progress Container -->
             <div class="progress-container">
+                <!-- Progress Bar -->
                 <div class="progress" id="progress"></div>
+                <!-- Circles for Progress Steps -->
                 <div class="circle active">1</div>
                 <div class="circle">2</div>
                 <div class="circle">3</div>
                 <div class="circle">4</div>
             </div>
+            <!-- Previous Button -->
             <button class="btn" id="prev" disabled>prev</button>
+            <!-- Next Button -->
             <button class="btn" id="next">next</button>
         </div>
+        <!-- JavaScript for controlling progress steps -->
         <script>
+            // JavaScript for controlling progress steps
             const progress = document.getElementById('progress');
 
             const btnPrev = document.getElementById('prev');
