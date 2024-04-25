@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Meta tags for character encoding and viewport settings -->
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- Internal CSS styles -->
+        <style>
+            /* Global CSS reset */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                    'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+                    'Helvetica Neue', sans-serif;
+            }
+
+            /* Styling for the body */
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                width: 100vw;
+            }
+
+            /* Styling for the background image */
+            .bg {
+                background: url('https://images.unsplash.com/photo-1552581234-26160f608093?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')
+                    no-repeat center center/cover;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                z-index: -1; /* Behind other content */
+                filter: blur(0px); /* Initial blur value */
+            }
+
+            /* Styling for the loading content */
+            .loading-content {
+                font-size: 3rem;
+                color: #fff;
+                font-weight: bold;
+                text-shadow: 5px 5px 15px black; /* Adding shadow effect to text */
+            }
+        </style>
+        <title>Blurry Loading Image</title>
+    </head>
+    <body>
+        <!-- Background section -->
+        <section class="bg"></section>
+
+        <!-- Loading content -->
+        <div class="loading-content">0%</div>
+
+        <!-- JavaScript for blurring effect -->
+        <script>
+            // Selecting loading content and background elements
+            const loadContent = document.querySelector('.loading-content');
+            const loadBg = document.querySelector('.bg');
+            let loading = 30; // Initial loading percentage
+
+            // Set interval for blurring effect
+            let int = setInterval(blurring, 30);
+
+            // Function to apply blurring effect
+            function blurring() {
+                loading++; // Increment loading percentage
+
+                // Clear interval when loading reaches 100%
+                if (loading > 99) {
+                    clearInterval(int);
+                }
+
+                // Update loading content text with current percentage
+                loadContent.innerText = `${loading}%`;
+
+                // Apply opacity based on loading percentage
+                loadContent.style.opacity = scale(loading, 0, 100, 1, 0);
+
+                // Apply blur filter based on loading percentage
+                loadBg.style.filter = `blur(${scale(
+                    loading,
+                    0,
+                    100,
+                    30,
+                    0
+                )}px)`;
+            }
+
+            // Function to scale values
+            function scale(num, in_min, in_max, out_min, out_max) {
+                return (
+                    ((num - in_min) * (out_max - out_min)) / (in_max - in_min) +
+                    out_min
+                );
+            }
+        </script>
+    </body>
+</html>
