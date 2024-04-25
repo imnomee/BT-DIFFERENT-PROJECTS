@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!-- Meta tags for character encoding and viewport settings -->
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- Link to an external stylesheet -->
         <link rel="stylesheet" href="style.css" />
+
+        <!-- Internal CSS styles -->
         <style>
+            /* Global CSS reset */
             * {
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
             }
+
+            /* Styling for the body */
             body {
                 display: flex;
                 align-items: center;
@@ -18,12 +26,15 @@
                 overflow: hidden;
             }
 
+            /* Styling for the container of panels */
             .container {
                 width: 90vw;
                 display: flex;
                 justify-content: space-around;
                 gap: 1rem;
             }
+
+            /* Styling for individual panels */
             .panel {
                 background-size: cover;
                 background-position: center;
@@ -35,8 +46,10 @@
                 cursor: pointer;
                 flex: 0.5;
                 position: relative;
-                transition: all 0.5s ease-in-out;
+                transition: all 0.5s ease-in-out; /* Smooth transition effect */
             }
+
+            /* Styling for heading inside panels */
             .panel h1 {
                 font-size: 2rem;
                 position: absolute;
@@ -44,34 +57,44 @@
                 bottom: 30px;
                 margin: 0;
                 opacity: 0;
-                transition: all 0.5s ease-in-out 0.6s;
+                transition: all 0.5s ease-in-out 0.6s; /* Delayed transition for heading */
             }
+
+            /* Styling for active panel */
             .panel.active {
-                flex: 5;
+                flex: 5; /* Expanding the panel when active */
             }
+
+            /* Styling for heading inside active panel */
             .panel.active h1 {
-                opacity: 1;
-                text-shadow: 5px 5px 10px black;
+                opacity: 1; /* Making the heading visible */
+                text-shadow: 5px 5px 10px black; /* Adding a shadow effect to the text */
             }
+
+            /* Hiding panels at specific positions */
             .panel:nth-of-type(4),
             .panel:nth-of-type(3) {
                 display: none;
                 transition: all 0.5s ease-in-out;
             }
+
+            /* Media query for larger screens */
             @media screen and (min-width: 572px) {
                 .container {
                     width: 95vw;
                 }
                 .panel:nth-of-type(4),
                 .panel:nth-of-type(3) {
-                    display: block;
+                    display: block; /* Displaying panels at specific positions */
                 }
             }
         </style>
         <title>Expanding Cards</title>
     </head>
     <body>
+        <!-- Container for panels -->
         <div class="container">
+            <!-- Panel 1 -->
             <div
                 class="panel active"
                 style="
@@ -79,6 +102,7 @@
                 ">
                 <h1>explore the world</h1>
             </div>
+            <!-- Panel 2 -->
             <div
                 class="panel"
                 style="
@@ -86,6 +110,7 @@
                 ">
                 <h1>explore the world</h1>
             </div>
+            <!-- Panel 3 -->
             <div
                 class="panel"
                 style="
@@ -93,6 +118,7 @@
                 ">
                 <h1>explore the world</h1>
             </div>
+            <!-- Panel 4 -->
             <div
                 class="panel"
                 style="
@@ -100,6 +126,7 @@
                 ">
                 <h1>explore the world</h1>
             </div>
+            <!-- Panel 5 -->
             <div
                 class="panel"
                 style="
@@ -108,16 +135,23 @@
                 <h1>explore the world</h1>
             </div>
         </div>
+
+        <!-- JavaScript for adding interactivity -->
         <script>
+            // Selecting all elements with class 'panel'
             const panels = document.querySelectorAll('.panel');
 
+            // Adding click event listener to each panel
             panels.forEach((panel) => {
                 panel.addEventListener('click', () => {
+                    // Removing 'active' class from all panels
                     removeActiveClasses();
+                    // Adding 'active' class to the clicked panel
                     panel.classList.add('active');
                 });
             });
 
+            // Function to remove 'active' class from all panels
             function removeActiveClasses() {
                 panels.forEach((panel) => panel.classList.remove('active'));
             }
