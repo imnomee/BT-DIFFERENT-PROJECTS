@@ -84,16 +84,27 @@
             <h2>Page Content</h2>
         </div>
         <script>
+            // Select all elements with the class 'box'
             const boxes = document.querySelectorAll('.box');
+
+            // Add event listener to the window for scrolling
             window.addEventListener('scroll', checkBoxes);
 
+            // Function to check if boxes are in the viewport
             function checkBoxes() {
-                const triggerPoint = (window.innerHeight / 5) * 4;
+                // Set the trigger point to be 110% from the top of the viewport
+                const triggerPoint = window.innerHeight * 1.1;
+
+                // Loop through each box
                 boxes.forEach((box) => {
+                    // Get the distance between the top of the box and the top of the viewport
                     const boxTop = box.getBoundingClientRect().top;
+
+                    // If the top of the box is less than the trigger point, add 'show' class
                     if (boxTop < triggerPoint) {
                         box.classList.add('show');
                     } else {
+                        // Otherwise, remove 'show' class
                         box.classList.remove('show');
                     }
                 });
