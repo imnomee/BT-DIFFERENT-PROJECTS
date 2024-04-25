@@ -98,7 +98,7 @@
                 // Loop through each box
                 boxes.forEach((box) => {
                     // Get the distance between the top of the box and the top of the viewport
-                    const boxTop = box.getBoundingClientRect().top;
+                    const boxTop = box.getBoundingClientRect().top - 100;
 
                     // If the top of the box is less than the trigger point, add 'show' class
                     if (boxTop < triggerPoint) {
